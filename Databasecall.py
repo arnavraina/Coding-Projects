@@ -55,11 +55,9 @@ class Librarydb:
             for data in output:
                 print(data)
         self.connection.commit()
+
+    #Delete Rocords from input Table_name    
     def delete_records(self,table_name):
-        '''
-        value = 20
-        column_name = "student_id"
-        '''
         self.cursor.execute('SELECT name from sqlite_master where type= "table"')
         output=self.cursor.fetchall()
         for idx in range(len(output)):
@@ -68,32 +66,31 @@ class Librarydb:
                 value=input("Enter the Value to be Deleted")
                 column_name=input("Enter the column name for the susquent value")
                 #self.cursor.execute('DELETE FROM STUDENTS WHERE student_id = 20')
-                self.cursor.execute('DELETE FROM %s WHERE %s = %s ' % (table_name, column_name, value))
+                self.cursor.execute('DELETE FROM %s WHERE %s = "%s" ' % (table_name, column_name, value))
                 self.connection.commit()
-                #self.cursor.execute('DELETE FROM STUDENTS WHERE student_id = ? ',[value])
-                '''
-                elf.cursor.execute("SELECT * FROM STUDENTS")
-                self.connectiosn.commit()
-                # COmment outS
-                #self.cursor.execute("SELECT * FROM STUDENTS")
-                outputx=self.cursor.fetchall()
-        #rint(len(output))
-                for data in outputx:
-                    print(data)
-                self.connection.commit()
-                '''
-
+            
+#Book obj for Refrence
 Book1=Book('33','MicroProcessors','T G Basvaraju','ECE','29')
-#db = Librarydb(database='Lib3.db')
-
+#Creating Class object
 db = Librarydb('Lib3.db')
-#db.query()
-#db.query()
+#STUDENT OBJ for Refrence
 Student1=Student('20','Arnav','M','CS','10')
-#db.insert_new_record(Book1)
-db.query()
-db.delete_records('BOOKS')
-db.query()
-#db.delete_records('STUDENTS')SELECT SELECT COLUMN_NAME.
-#PRAGMA table_info(STUDENTS)
 
+#Basic Console to Start the Program
+def start_program():
+    choice=int(input("1:To query Database \n 2. To delete Records Specifically without query \n 3.Update student name for a id\n 4.Terminate Program\n"))
+    while choice != 4:
+        if choice == 1:
+            db.query()
+            start_program()
+        if choice == 2:
+            tb_name=input("Enter the table name to delete records from")
+            db.delete_records(tb_name)
+            start_program()
+        if choice == 3:
+            db.update_name()
+            start_program()
+        
+    exit()
+start_program()
+        
