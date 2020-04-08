@@ -1,5 +1,6 @@
 import pandas as pd
 import sqlite3
+'''
 Students = {'Name': ['Rajesh','Rohit','Neha','Preeti'],'CGPA': [8.2,7.9,7.1,7.7]}
 
 df = pd.DataFrame(Students, columns= ['Name', 'CGPA'])
@@ -17,3 +18,9 @@ a=c.fetchall()
 print(a)
 for row in c.fetchall():
     print(row)
+    '''
+a=[1,2,3,4,"arnav"]
+if 2 in a:
+    print("true")
+if "arnav" in a:
+    print("False")

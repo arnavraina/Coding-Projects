@@ -26,6 +26,8 @@ class Librarydb:
         #rint(len(output))
         for data in output:
             print(data)
+        if output == []:
+            print("Wrong values fetched in query")
         self.connection.commit()
     
 
@@ -60,21 +62,34 @@ class Librarydb:
     def delete_records(self,table_name):
         self.cursor.execute('SELECT name from sqlite_master where type= "table"')
         output=self.cursor.fetchall()
-        for idx in range(len(output)):
-            #print(output[idx])
-            if table_name in output[idx]:
-                value=input("Enter the Value to be Deleted")
-                column_name=input("Enter the column name for the susquent value")
-                #self.cursor.execute('DELETE FROM STUDENTS WHERE student_id = 20')
-                self.cursor.execute('DELETE FROM %s WHERE %s = "%s" ' % (table_name, column_name, value))
-                self.connection.commit()
-            
+        print(type(output))
+        #if table_name in output:
+        value=input("Enter the Value of student_id associated")
+        try:
+            self.cursor.execute("SELECT book_id FROM %s WHERE student_id = '%s'"% (table_name,value))
+            output=self.cursor.fetchall()
+        except:
+            print("Invalid table or value entered")
+            return
+        if output == []:
+            print("No such Student_id or Table Found Check again")
+            return
+        else:
+                    #self.cursor.execute('DELETE FROM STUDENTS WHERE student_id = 20')
+            self.cursor.execute('DELETE FROM %s WHERE student_id = "%s" ' % (table_name,value))
+            self.connection.commit()
+        #else:
+            #print("No table found")
+#NULL =''
 #Book obj for Refrence
-Book1=Book('33','MicroProcessors','T G Basvaraju','ECE','29')
+#Book1=Book('59','Computer Organization','Rajesh Kumar','CS',NULL)
 #Creating Class object
+
 db = Librarydb('Lib3.db')
+#db.query()
 #STUDENT OBJ for Refrence
-Student1=Student('20','Arnav','M','CS','10')
+#Student1=Student('20','Arnav','M','CS','10')
+#db.insert_new_record(Book1)
 
 #Basic Console to Start the Program
 def start_program():
@@ -93,4 +108,3 @@ def start_program():
         
     exit()
 start_program()
-        
