@@ -3,7 +3,7 @@ import sqlite3
 conn = sqlite3.connect('Lib2.db')
 c=conn.cursor()
 
-i=input("Press 1 for displaying all records \n Press 2 For Finding student and book id for the given Book issued \n")
+i=input("Press 1 for displaying all records \n Press 2 For Finding student and book id for the given Book issued\n")
 if i == "1":
     c.execute('SELECT * FROM Books')
     data = c.fetchall()

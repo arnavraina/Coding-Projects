@@ -19,8 +19,8 @@ print(a)
 for row in c.fetchall():
     print(row)
     '''
-a=[1,2,3,4,"arnav"]
-if 2 in a:
+list=[(3,),(4,)]
+if (3) in list:
     print("true")
-if "arnav" in a:
+if (3,) not in list:
     print("False")
